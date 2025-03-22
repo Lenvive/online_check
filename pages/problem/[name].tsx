@@ -54,6 +54,9 @@ export default function Home() {
           cmdInfo.outputNames.map((name) => ({ name, content: '' }))
         );
         setCmd(cmdInfo.instr);
+      })
+      .catch(() => {
+        router.push('/404');
       });
   }, [projName]);
 

@@ -34,7 +34,7 @@ class TestProgramTester extends Tester {
   }
 }
 
-const tester = new TestProgramTester('cs110P-prj1');
+const tester = new TestProgramTester('cs110P_prj1');
 
 apiRoute.post((req, res) => {
   const { inputs } = req.body as UserPostClientBody;

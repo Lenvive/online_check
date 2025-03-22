@@ -45,7 +45,7 @@ export type TesterConfig = {
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-export type InstrsName = 'example' | 'cs110P-prj1';
+export type InstrsName = 'example' | 'cs110P_prj1';
 
 const testerConfig: TesterConfig = {
   basic: {
@@ -58,7 +58,7 @@ const testerConfig: TesterConfig = {
       inputNames: ['main'],
       outputNames: ['log'],
     },
-    'cs110P-prj1': {
+    cs110P_prj1: {
       dir: 'cs110P_prj1',
       instr: 'make check',
       inputNames: ['input.s'],
