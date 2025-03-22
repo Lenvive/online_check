@@ -50,6 +50,9 @@ export default function Home() {
         setDirName(cmdInfo.dir);
         setInputNames(cmdInfo.inputNames);
         setOutputNames(cmdInfo.outputNames);
+        setOutputFiles(
+          cmdInfo.outputNames.map((name) => ({ name, content: '' }))
+        );
         setCmd(cmdInfo.instr);
       });
   }, [projName]);
@@ -122,6 +125,7 @@ export default function Home() {
                   <div key={outputFile.name}>
                     <Textarea
                       disabled
+                      className="mb-4"
                       label={outputNames[index]}
                       minRows={7}
                       value={outputFile.content}

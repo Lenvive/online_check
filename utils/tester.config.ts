@@ -45,7 +45,7 @@ export type TesterConfig = {
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-export type InstrsName = 'example';
+export type InstrsName = 'example' | 'cs110P-prj1';
 
 const testerConfig: TesterConfig = {
   basic: {
@@ -57,6 +57,12 @@ const testerConfig: TesterConfig = {
       instr: 'node ./test.js',
       inputNames: ['main'],
       outputNames: ['log'],
+    },
+    'cs110P-prj1': {
+      dir: 'cs110P_prj1',
+      instr: 'make check',
+      inputNames: ['input.s'],
+      outputNames: ['.log', '.out', '.memcheck'],
     },
   },
 };

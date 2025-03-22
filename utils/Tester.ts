@@ -80,7 +80,9 @@ abstract class Tester {
           }
           resolve(result);
         })
-        .catch(reject);
+        .catch((error) => {
+          reject(error);
+        });
     });
   }
 
@@ -103,31 +105,20 @@ abstract class Tester {
       stdout: string;
       outputFiles?: { name: string; content: string }[];
     }>((resolve, reject) => {
-      exec(
-        this.cmdInfo.instr,
-        { cwd: this.mainDirPath },
-        (error, stdout, stderr) => {
-          if (error) {
-            return reject(new Error(error.message));
-          }
-          if (stderr) {
-            return reject(new Error(stderr));
+      exec(this.cmdInfo.instr, { cwd: this.mainDirPath }, (error, stdout) => {
+        let outputFiles: { name: string; content: string }[] = [];
+
+        try {
+          // 将主文件夹中的输出文件放入临时文件夹
+          for (const name of this.outFilesPath) {
+            fs.ensureDirSync(path.resolve(this.tmpDirPath, uuid));
+            fs.copySync(
+              path.resolve(this.mainDirPath, name),
+              path.resolve(this.tmpDirPath, uuid, name)
+            );
           }
 
-          try {
-            // 将主文件夹中的输出文件放入临时文件夹
-            for (const name of this.outFilesPath) {
-              fs.copyFileSync(
-                path.resolve(this.mainDirPath, name),
-                path.resolve(this.tmpDirPath, uuid, name)
-              );
-              fs.unlinkSync(path.resolve(this.mainDirPath, name));
-            }
-          } catch (error) {
-            return reject(error);
-          }
-
-          const outputFiles = this.outFilesPath.map((name) => ({
+          outputFiles = this.outFilesPath.map((name) => ({
             name,
             content: fs.readFileSync(
               path.resolve(this.tmpDirPath, uuid, name),
@@ -137,14 +128,21 @@ abstract class Tester {
 
           // 删除临时文件夹
           fs.removeSync(path.resolve(this.tmpDirPath, uuid));
+        } catch (error) {
+          console.error(error);
+          try {
+            fs.removeSync(path.resolve(this.tmpDirPath, uuid));
+          } catch (error) {}
 
-          resolve({
-            uuid,
-            stdout,
-            outputFiles,
-          });
+          return reject(error);
         }
-      );
+
+        resolve({
+          uuid,
+          stdout,
+          outputFiles,
+        });
+      });
     });
   }
 }
