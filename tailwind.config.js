@@ -11,7 +11,7 @@ const config = {
     extend: {
       fontFamily: {
         sans: ['sans-serif'],
-        mono: ['Consolas'],
+        mono: ['Courier New'],
       },
     },
   },

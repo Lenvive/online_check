@@ -76,7 +76,7 @@ export default function Home() {
                 {inputNames.map((name) => (
                   <Textarea
                     key={name}
-                    className="mb-4"
+                    className="mb-4 font-mono"
                     label={name}
                     minRows={7}
                     onChange={(e) => {
@@ -117,7 +117,7 @@ export default function Home() {
               </Button>
               <Textarea
                 disabled
-                className="mb-4"
+                className="mb-4 font-mono"
                 label="Stdout"
                 minRows={7}
                 value={stdout}
@@ -128,7 +128,7 @@ export default function Home() {
                   <div key={outputFile.name}>
                     <Textarea
                       disabled
-                      className="mb-4"
+                      className="mb-4 font-mono"
                       label={outputNames[index]}
                       minRows={7}
                       value={outputFile.content}

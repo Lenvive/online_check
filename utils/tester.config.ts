@@ -45,7 +45,7 @@ export type TesterConfig = {
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-export type InstrsName = 'example' | 'cs110P_prj1';
+export type InstrsName = 'example' | 'cs110P_prj1' | 'cs110P_hw3';
 
 const testerConfig: TesterConfig = {
   basic: {
@@ -63,6 +63,13 @@ const testerConfig: TesterConfig = {
       instr: 'make check',
       inputNames: ['input.s'],
       outputNames: ['.log', '.out', '.memcheck'],
+    },
+    cs110P_hw3: {
+      dir: 'cs110P_hw3',
+      instr:
+        'rm ./out.txt ; ./build/bin/leaderboard_cli < ./test/leaderboard_in.txt > ./out.txt',
+      inputNames: ['./test/leaderboard_in.txt'],
+      outputNames: ['./out.txt'],
     },
   },
 };

@@ -59,7 +59,7 @@ abstract class Tester {
     outputFiles?: { name: string; content: string }[];
   }> {
     return new Promise((resolve, reject) => {
-      const uuid = uuidv4();
+      const uuid = uuidv4().replace(/-/g, '_');
 
       // 写入临时文件夹
       const uuidTempDirPath = path.resolve(this.tmpDirPath, uuid);
@@ -76,6 +76,7 @@ abstract class Tester {
         .add(() => this.processJob(uuid))
         .then((result) => {
           if (result === void 0) {
+            console.error('No result');
             return reject(new Error('No result'));
           }
           resolve(result);
